@@ -1,16 +1,10 @@
 module Main where
 
 import Lib
-
-testAppState = State
-  { port = 8080
-  , apiKey = ""
-  , apiRoot = "api.openweathermap.org"
-  , apiPath = "/data/2.5/"
-  , locations = ["London"]
-  }
+import System.Environment
 
 main :: IO ()
 main = do
-  let apiRoot = "http://api.openweathermap.org/data/2.5/"
-  startApp testAppState
+  [Just port, Just apiKey, Just apiRoot, Just apiPath] <- mapM lookupEnv ["PORT", "API_KEY", "API_ROOT", "API_PATH"]
+  let state = State (read port :: Int) apiKey apiRoot apiPath ["London"]
+  startApp state
