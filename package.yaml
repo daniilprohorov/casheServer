@@ -19,13 +19,15 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/casheServer#readme>
 
 dependencies:
-- base >= 4.7 && < 5
 - aeson
+- base >= 4.7 && < 5
+- cron
 - servant-server
 - servant-client
 - http-client
 - unordered-containers
 - text
+- time
 - wai
 - warp
 
