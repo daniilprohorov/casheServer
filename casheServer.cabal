@@ -32,6 +32,8 @@ library
   build-depends:
       aeson
     , base >=4.7 && <5
+    , bytestring
+    , cmdargs
     , cron
     , http-client
     , servant-client
@@ -41,6 +43,7 @@ library
     , unordered-containers
     , wai
     , warp
+    , yaml
   default-language: Haskell2010
 
 executable casheServer-exe
@@ -53,7 +56,9 @@ executable casheServer-exe
   build-depends:
       aeson
     , base
+    , bytestring
     , casheServer
+    , cmdargs
     , cron
     , http-client
     , servant-client
@@ -63,6 +68,7 @@ executable casheServer-exe
     , unordered-containers
     , wai
     , warp
+    , yaml
   default-language: Haskell2010
 
 test-suite casheServer-test
@@ -76,7 +82,9 @@ test-suite casheServer-test
   build-depends:
       aeson
     , base
+    , bytestring
     , casheServer
+    , cmdargs
     , cron
     , hspec
     , hspec-wai
@@ -89,4 +97,5 @@ test-suite casheServer-test
     , unordered-containers
     , wai
     , warp
+    , yaml
   default-language: Haskell2010

@@ -34,19 +34,18 @@ import Control.Concurrent.MVar
 apiPort = 80
 -- логично добавить appid в параметры запроса, тогда не надо будет ничего сохранять на уровне кеш сервера
 type API = "weather" :> QueryParam "q" Text :> Get '[JSON] Object
-type APIClient = "weather" :> QueryParam "q" Text :> QueryParam "appid" Text :> Get '[JSON] (Object)
+type APIClient = "weather" :> QueryParam "q" Text :> QueryParam "appid" Text :> Get '[JSON] Object
 
 data ApplicationState = State
-  { port :: Int
-  , apiKey :: Text
-  , apiRoot :: Text
-  , apiPath :: Text
+  { key :: Text
+  , root :: Text
+  , path :: Text
   , storage :: MVar Object
   }
 
 
-startApp :: ApplicationState -> IO ()
-startApp state@State{port} = run port (app state)
+startApp :: ApplicationState -> Int -> IO ()
+startApp state port = run port (app state)
 
 app :: ApplicationState -> Application
 app state = serve api (server state)
@@ -74,12 +73,12 @@ controller _ Nothing = throwError $ err404 { errBody = "Please enter q=LOCATION 
 server :: ApplicationState -> Server API
 server state = controller state
 
-weatherRequest :: ApplicationState -> Text -> IO (Object)
-weatherRequest state@State{apiKey, apiRoot, apiPath} location = do
+weatherRequest :: ApplicationState -> Text -> IO Object
+weatherRequest State{key, root, path} location = do
   -- тут сделано по колхозному!!
   let fromEither = either (\x -> HM.singleton (pack "Error") (String $ pack $ show x)) id
   manager <- newManager defaultManagerSettings
-  res <- runClientM (getWeather (Just location) (Just apiKey)) (mkClientEnv manager (BaseUrl Http (unpack apiRoot) 80 (unpack apiPath)))
+  res <- runClientM (getWeather (Just location) (Just key)) (mkClientEnv manager (BaseUrl Http (unpack root) 80 (unpack path)))
   return $ fromEither res
 
 getWeather :: Maybe Text -> Maybe Text -> ClientM (Object)

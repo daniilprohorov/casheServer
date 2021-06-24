@@ -21,7 +21,9 @@ description:         Please see the README on GitHub at <https://github.com/gith
 dependencies:
 - aeson
 - base >= 4.7 && < 5
+- bytestring
 - cron
+- cmdargs
 - servant-server
 - servant-client
 - http-client
@@ -30,6 +32,7 @@ dependencies:
 - time
 - wai
 - warp
+- yaml
 
 library:
   source-dirs: src
