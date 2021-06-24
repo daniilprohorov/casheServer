@@ -24,7 +24,8 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Client
+      Server
   other-modules:
       Paths_casheServer
   hs-source-dirs:

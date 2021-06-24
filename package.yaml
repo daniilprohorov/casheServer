@@ -1,10 +1,10 @@
 name:                casheServer
 version:             0.1.0.0
-github:              "githubuser/casheServer"
+github:              "daniilprohorov/casheServer"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2021 Author name here"
+author:              "Daniil Prohorov"
+maintainer:          "daniilprohorov@gmail.com"
+copyright:           "2021 Daniil Prohorov"
 
 extra-source-files:
 - README.md
